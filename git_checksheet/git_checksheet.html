@@ -1,1 +1,231 @@
-git_check_sheet
+
+git init
+git add
+git commit
+git diff
+git diff —staged
+git status
+git log —oneline
+git log -p
+    変更差分
+got log -n
+    コミット数
+git rm
+    指定した部分の削除
+git rm —cashed
+    ローカルにファイルを残してgitの記録だけ消す
+
+git reset HEAD index.html
+    削除したファイルを戻す
+
+git checkout --index.html
+    ファイルを元の状態に戻す
+
+git checkout --.
+    全変更を取り消す
+    --はファイル名とブランチ名を区別するため
+
+git mv 旧　新
+    ファイル名の変更
+    古いファイルが削除され
+    新しいファイルが作成される認識
+
+git push
+    リモートリポジトリ作成
+
+git remote add origin URL
+    リモートリポジトリ送信
+
+git push リモート名　ブランチ名
+
+git push -u origin master
+-u オプションは初回につけておくと
+次回以降はgit pushで可能
+
+コマンドにエイリアスをつける
+エイリアス設定で入力を楽にする
+    git config --global allas.ci commit
+    git config --global alias.st status
+    git config --global alias.br branch
+    git config --global alias.co checkout
+    --global PC全体の設定
+
+.gitignoreファイルを指定
+    管理しないファイルをgitの管理から外す
+
+git checkout --index.html
+    ファイルを元の状態に戻す
+
+git checkout --.
+    全変更を取り消す
+
+ステージに追加した変更を戻す
+git reset HEAD 取り消す名
+    全部を変更取り消す
+
+git reset HEAD .
+    リポジトリの最新の内容をステージに
+    上書きするイメージ
+
+git commit —amend
+    直前のコミットを修正したいとき
+    注意:
+    リモートリポジトリに pushしたコミットは変更禁止
+    もし変更する場合はもう一度変更してコミットする
+    リモートを表示する
+
+git remote
+    対応するURLを表示
+
+git remote -v
+    リモートリポジトリは複数登録可能
+    リモートリポジトリを新規追加する
+
+git remote add リモート名
+git remote add tutorial URL
+
+リモートから情報取得 fetch
+2種類 fetch pull
+git fetch リモート名
+git fetch origin
+
+git merge
+    ローカルリポジトリから情報を取得
+    ローカルリポジトリからツリーへ統合
+
+cat ファイル名
+    ファイルの内容確認
+    リモートから情報を取得 pull
+    マージまでを一度にやりたいとき
+
+git pull リモート名　ブランチ名
+git pull origin master
+git pullは
+git fetch origin master
+git merge origin/masterと同じ
+リモートリポジトリからローカルリポジトリに情報を反映させた
+
+fetchとpullの使い分け
+pullの注意点はブランチ確認
+別のブランチに統合されてしまう
+リモートの情報を確認したいとき
+git remote show リモート名
+リモートを変更・削除する
+変更
+git remote rename
+旧リモート名　新リモート名
+git remote new_tutorial
+削除
+git remote rm リモート名
+git remote rm new_tutorial
+ブランチ
+並行して複数機能を作成するときに使う
+メリット
+ブランチを分岐して開発することで
+他の人の変更点の影響を受けない
+ブランチの仕組み
+ブランチとはコミットを指すポインタ
+ブランチを新規追加する
+git branch ブランチ名
+git branch feature
+ブランチの一覧表示
+git branch
+＊は今いるブランチ
+全てのブランチを表示する
+git branch -a
+リモートリポジトリも表示
+それぞれのブランチがどのコミットかを調べるには？
+git log --oneline --decorate
+ブランチを切り替える
+git checkout 既存のブランチ名
+git checkout feature
+ブランチを新規作成して切り替える
+git checkout -b 新ブランチ名
+マージの変更
+他の人の変更内容を取り込む作業のこと
+変更履歴をマージする
+git remote ブランチ名
+git remote リモート名・ブランチ名
+git merge origin/master
+マージ3種類
+FastFoward：早送りになるマージ
+ブランチが枝分けれしてなかった時は
+ブランチのポインタを前に進めるだけ
+AutoMerge：基本的なマージ
+枝分かれして開発していた場合、マージコミットという新しいコミットを作る
+コミットファイルを2つ親に持っている
+コンフリクト
+同じファイルの同じ行に対して異なる
+編集を行ったとき
+解決方法
+1.ファイルの内容を書き換える
+2.<< == >>の記述を削除する
+コンフリクトが起きないようにするには？
+・複数人で同じファイルを変更しない
+・pullやmergeする前に変更中に状態を無くしておく(commitやstashをしておく)
+・pullするブランチに移動してからpull
+ブランチ名を変更・削除
+変更
+git branch -m ブランチ名
+git branch -m new_branch
+削除
+git branch -d ブランチ名
+git branch -d feature
+強制削除する
+git branch -D ブランチ名
+masterにマージされていない変更が
+残っている場合は削除されない
+ブランチを利用した開発の流れ
+masterブランチをリリース用ブランチに、
+開発はトピックブランチを作成して進めるのが基本　がおすすめ
+リモートブランチ
+git fetchでリモートからリモート名/ブランチ名でローカルに保存される
+例.origin/master
+プルリクエスト
+自分の変更したコードをリポジトリに取り込んでもらえるよう以来する機能
+プルリクエストの手順
+1.masterブランチを最新に更新
+2.ブランチを作成
+3.ファイルを変更
+4.変更コミット
+5.GitHubへプッシュ
+6.プルリクエストを送る
+7.コードレビュー
+8.プルリクエストをマージ
+9.ブランチを削除
+GitHub Flowの流れ
+1.masterブランチからブランチを作成
+2.ファイルを変更しコミット
+3.同名のブランチをGitHubへプッシュ
+4.プルリクエストを送る
+5.コードレビューし、masterブランチにマージ
+6.masterブランチをデプロイ
+↓
+本番サーバ
+ポイント
+・masterブランチは常にデプロイできる状態に保つ
+・新開発はmasterブランチから新しいブランチを作成してスタート
+・作成した新しいブランチ上で作業しコミットする
+・定期的にPushする
+・masterにマージするためのプルリクエストを使う
+・必ずレビューを受ける
+・masterブランチにマージしたらすぐにデプロイする
+→テストとデプロイ作業は自動化
+リベース
+変更を統合する際に、履歴をきれいに
+整えるために使うのがるリベース
+git rebase ブランチ名
+ブランチの基点をなるコミットを
+別のコミットに移動できる
+例.リベースの流れ
+git checkout feature
+git rebase master
+git checkout master
+git merge feature
+リベースとマージの違い
+履歴が枝分かれしている　マージ
+きれいに一つの履歴　リベース
+リベースしてはいけないこと
+GitHubにプッシュしたコミットを
+リベースするのはNG
+git push -f はNG
