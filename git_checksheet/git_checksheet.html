@@ -523,4 +523,18 @@ GitHub Flowの流れ
             git stash apply スタッシュ名
             git stash apply stash@{1}
 
-        
+    避難した作業を削除する方法
+
+        最新の作業を削除する
+
+            git stash drop
+
+        特定の作業を削除する
+
+            git stash drop スタッシュ名
+
+            git stash drop stash@{1}
+
+        全作業を削除する
+
+            git stash clear
