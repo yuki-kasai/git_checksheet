@@ -99,133 +99,190 @@ cat ファイル名
     マージまでを一度にやりたいとき
 
 git pull リモート名　ブランチ名
-git pull origin master
+    git pull origin master
+
 git pullは
-git fetch origin master
-git merge origin/masterと同じ
-リモートリポジトリからローカルリポジトリに情報を反映させた
+    git fetch origin master
+    git merge origin/masterと同じ
+    リモートリポジトリからローカルリポジトリに情報を反映させた
 
 fetchとpullの使い分け
-pullの注意点はブランチ確認
-別のブランチに統合されてしまう
-リモートの情報を確認したいとき
-git remote show リモート名
+
+    pullの注意点はブランチ確認
+    別のブランチに統合されてしまう
+    リモートの情報を確認したいとき
+    git remote show リモート名
+
 リモートを変更・削除する
+
 変更
-git remote rename
-旧リモート名　新リモート名
-git remote new_tutorial
+
+    git remote rename
+    旧リモート名　新リモート名
+    git remote new_tutorial
+
 削除
-git remote rm リモート名
-git remote rm new_tutorial
+
+    git remote rm リモート名
+    git remote rm new_tutorial
+
 ブランチ
-並行して複数機能を作成するときに使う
+
+    並行して複数機能を作成するときに使う
+
 メリット
-ブランチを分岐して開発することで
-他の人の変更点の影響を受けない
+
+    ブランチを分岐して開発することで
+    他の人の変更点の影響を受けない
+
 ブランチの仕組み
-ブランチとはコミットを指すポインタ
-ブランチを新規追加する
-git branch ブランチ名
-git branch feature
+
+    ブランチとはコミットを指すポインタ
+    ブランチを新規追加する
+    git branch ブランチ名
+    git branch feature
+
 ブランチの一覧表示
-git branch
-＊は今いるブランチ
+
+    git branch
+    ＊は今いるブランチ
+
 全てのブランチを表示する
-git branch -a
-リモートリポジトリも表示
-それぞれのブランチがどのコミットかを調べるには？
-git log --oneline --decorate
+
+    git branch -a
+    リモートリポジトリも表示
+    それぞれのブランチがどのコミットかを調べるには？
+    git log --oneline --decorate
+
 ブランチを切り替える
-git checkout 既存のブランチ名
-git checkout feature
+
+    git checkout 既存のブランチ名
+    git checkout feature
+
 ブランチを新規作成して切り替える
-git checkout -b 新ブランチ名
+
+    git checkout -b 新ブランチ名
+
 マージの変更
-他の人の変更内容を取り込む作業のこと
+
+    他の人の変更内容を取り込む作業のこと
+
 変更履歴をマージする
-git remote ブランチ名
-git remote リモート名・ブランチ名
-git merge origin/master
+
+    git remote ブランチ名
+    git remote リモート名・ブランチ名
+    git merge origin/master
+
 マージ3種類
+
 FastFoward：早送りになるマージ
-ブランチが枝分けれしてなかった時は
-ブランチのポインタを前に進めるだけ
+    ブランチが枝分けれしてなかった時は
+    ブランチのポインタを前に進めるだけ
+
 AutoMerge：基本的なマージ
-枝分かれして開発していた場合、マージコミットという新しいコミットを作る
-コミットファイルを2つ親に持っている
+    枝分かれして開発していた場合、マージコミットという新しいコミットを作る
+    コミットファイルを2つ親に持っている
+
 コンフリクト
-同じファイルの同じ行に対して異なる
-編集を行ったとき
+    同じファイルの同じ行に対して異なる
+    編集を行ったとき
+
 解決方法
-1.ファイルの内容を書き換える
-2.<< == >>の記述を削除する
+
+    1.ファイルの内容を書き換える
+    2.<< == >>の記述を削除する
+
 コンフリクトが起きないようにするには？
+
 ・複数人で同じファイルを変更しない
 ・pullやmergeする前に変更中に状態を無くしておく(commitやstashをしておく)
 ・pullするブランチに移動してからpull
+
 ブランチ名を変更・削除
+
 変更
-git branch -m ブランチ名
-git branch -m new_branch
+
+    git branch -m ブランチ名
+    git branch -m new_branch
+
 削除
-git branch -d ブランチ名
-git branch -d feature
+
+    git branch -d ブランチ名
+    git branch -d feature
+
 強制削除する
-git branch -D ブランチ名
-masterにマージされていない変更が
-残っている場合は削除されない
+
+    git branch -D ブランチ名
+    masterにマージされていない変更が
+    残っている場合は削除されない
+
 ブランチを利用した開発の流れ
-masterブランチをリリース用ブランチに、
-開発はトピックブランチを作成して進めるのが基本　がおすすめ
-リモートブランチ
-git fetchでリモートからリモート名/ブランチ名でローカルに保存される
-例.origin/master
+
+    masterブランチをリリース用ブランチに、
+    開発はトピックブランチを作成して進めるのが基本　がおすすめ
+    リモートブランチ
+    git fetchでリモートからリモート名/ブランチ名でローカルに保存される
+    例.origin/master
+
 プルリクエスト
-自分の変更したコードをリポジトリに取り込んでもらえるよう以来する機能
+
+    自分の変更したコードをリポジトリに取り込んでもらえるよう以来する機能
+
 プルリクエストの手順
-1.masterブランチを最新に更新
-2.ブランチを作成
-3.ファイルを変更
-4.変更コミット
-5.GitHubへプッシュ
-6.プルリクエストを送る
-7.コードレビュー
-8.プルリクエストをマージ
-9.ブランチを削除
+
+    1.masterブランチを最新に更新
+    2.ブランチを作成
+    3.ファイルを変更
+    4.変更コミット
+    5.GitHubへプッシュ
+    6.プルリクエストを送る
+    7.コードレビュー
+    8.プルリクエストをマージ
+    9.ブランチを削除
+
 GitHub Flowの流れ
-1.masterブランチからブランチを作成
-2.ファイルを変更しコミット
-3.同名のブランチをGitHubへプッシュ
-4.プルリクエストを送る
-5.コードレビューし、masterブランチにマージ
-6.masterブランチをデプロイ
-↓
-本番サーバ
+
+    1.masterブランチからブランチを作成
+    2.ファイルを変更しコミット
+    3.同名のブランチをGitHubへプッシュ
+    4.プルリクエストを送る
+    5.コードレビューし、masterブランチにマージ
+    6.masterブランチをデプロイ
+    ↓
+    本番サーバ
+
 ポイント
-・masterブランチは常にデプロイできる状態に保つ
-・新開発はmasterブランチから新しいブランチを作成してスタート
-・作成した新しいブランチ上で作業しコミットする
-・定期的にPushする
-・masterにマージするためのプルリクエストを使う
-・必ずレビューを受ける
-・masterブランチにマージしたらすぐにデプロイする
-→テストとデプロイ作業は自動化
+    ・masterブランチは常にデプロイできる状態に保つ
+    ・新開発はmasterブランチから新しいブランチを作成してスタート
+    ・作成した新しいブランチ上で作業しコミットする
+    ・定期的にPushする
+    ・masterにマージするためのプルリクエストを使う
+    ・必ずレビューを受ける
+    ・masterブランチにマージしたらすぐにデプロイする
+    →テストとデプロイ作業は自動化
+
 リベース
-変更を統合する際に、履歴をきれいに
-整えるために使うのがるリベース
-git rebase ブランチ名
-ブランチの基点をなるコミットを
-別のコミットに移動できる
+
+    変更を統合する際に、履歴をきれいに
+    整えるために使うのがるリベース
+    git rebase ブランチ名
+    ブランチの基点をなるコミットを
+    別のコミットに移動できる
+
 例.リベースの流れ
-git checkout feature
-git rebase master
-git checkout master
-git merge feature
+
+    git checkout feature
+    git rebase master
+    git checkout master
+    git merge feature
+
 リベースとマージの違い
-履歴が枝分かれしている　マージ
-きれいに一つの履歴　リベース
+
+    履歴が枝分かれしている　マージ
+    きれいに一つの履歴　リベース
+
 リベースしてはいけないこと
-GitHubにプッシュしたコミットを
-リベースするのはNG
-git push -f はNG
+
+    GitHubにプッシュしたコミットを
+    リベースするのはNG
+    git push -f はNG
