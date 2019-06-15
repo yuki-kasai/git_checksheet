@@ -374,4 +374,117 @@ GitHub Flowの流れ
 
 リベースで変更履歴を修正
 
-    リベースで履歴を書き換える
+    リベースで履歴を書き換え
+
+    コミットをきれいに整えてからPushしたい時は履歴を書き換える
+    ※GitHubにPushしていないコミット
+
+    直前のコミットをやり直す
+
+        git commit --amend
+
+    複数のコミットをやり直す
+
+        git rebase -i コミットID
+
+        git rebase -i HEAD~3
+
+        例.
+        pick gh21f6d ヘッダー修正     HEAD~2
+        pick 193054e ファイル追加     HEAD~1
+        pick 84gha0d README修正       HEAD
+
+    やり直したいcommitをeditにする
+
+        edit gh21f6d ヘッダー修正     HEAD~2
+        pick 193054e ファイル追加     HEAD~1
+        pick 84gha0d README修正       HEAD
+
+    やり直しを実行する
+
+        git commit --amned
+
+    次のコミットへ進む（リベース完了）
+
+        git rebase --continue
+
+    一連の流れ
+
+        1.git rebase -i コマンドで対話的リベースモードに入る
+        2.修正したいコミットをeditにしてコミットエディタを終了する
+        3.editのコミットのところでコミットの適用が止まる
+        4.git commit --amend コマンドで修正
+        5.git rebase --continueで次のコミットへいく
+        6.pickだとそのままのコミット内容を適用して次へいく
+
+    コミットを並び替える・削除する
+
+        pick 193054e ファイル追加     HEAD~1
+        pick gh21f6d ヘッダー修正     HEAD~2
+
+            単純にコミットを消したり並び替えることで変更できる
+
+    コミットをまとめる
+
+        コミットを1つにまとめる
+
+            pick gh21f6d ヘッダー修正     HEAD~2
+            squash 193054e ファイル追加     HEAD~1
+            squash 84gha0d README修正       head
+
+        コミットを分割する
+
+            pick gh21f6d ヘッダー修正                  HEAD~2
+            pick 193054e ファイル追加                  HEAD~1
+            pick 84gha0d README修正とindexを修正       HEAD
+
+            git reset HEAD^
+            git add README
+            git commit -m "README修正"
+            git add index.html
+            git commit -m "index.html修正"
+            git rebase --continue
+
+タグの一覧を表示する
+
+    コミットを参照しやすくするためにわかりやすく名前をつけるのがタグで
+    リリースポイントに使われる
+
+    タグを作成する
+
+        注釈付きのタグと軽量版のタグの2種類
+
+        注釈付きタグ
+
+            git tag -a タグ名 -m ”メッセージ”
+
+            例.
+            git tag -a 20190615_01 -m "version 20190615_01"
+
+        軽量版タグ
+
+            git tag タグ名
+
+            例.
+            git tag -a 20190615_01
+
+        後からタグを付ける方法
+
+            git tag タグ名　以前のコミット名
+
+            例.
+            git tag 20190615_01 8a6cbc4
+
+    タグのデータを表示する
+
+        git show タグ名
+
+        例.
+        git show 20190615_01
+
+        表示内容
+
+            ・タグ付けした人の情報
+            ・タグ付けした日時
+            ・注釈メッセージ
+            ・コミット
