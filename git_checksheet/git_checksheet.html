@@ -1,49 +1,70 @@
-
 git init
+
 git add
+
 git commit
+
 git diff
+
 git diff —staged
+
 git status
+
 git log —oneline
+
 git log -p
+
     変更差分
+
 got log -n
+
     コミット数
+
 git rm
+
     指定した部分の削除
+
 git rm —cashed
+
     ローカルにファイルを残してgitの記録だけ消す
 
 git reset HEAD index.html
+
     削除したファイルを戻す
 
 git checkout --index.html
+
     ファイルを元の状態に戻す
 
 git checkout --.
+
     全変更を取り消す
     --はファイル名とブランチ名を区別するため
 
 git mv 旧　新
+
     ファイル名の変更
     古いファイルが削除され
     新しいファイルが作成される認識
 
 git push
+
     リモートリポジトリ作成
 
 git remote add origin URL
+
     リモートリポジトリ送信
 
 git push リモート名　ブランチ名
 
 git push -u origin master
--u オプションは初回につけておくと
-次回以降はgit pushで可能
+
+    -u オプションは初回につけておくと
+    次回以降はgit pushで可能
 
 コマンドにエイリアスをつける
 エイリアス設定で入力を楽にする
+
     git config --global allas.ci commit
     git config --global alias.st status
     git config --global alias.br branch
@@ -51,23 +72,29 @@ git push -u origin master
     --global PC全体の設定
 
 .gitignoreファイルを指定
+
     管理しないファイルをgitの管理から外す
 
 git checkout --index.html
+
     ファイルを元の状態に戻す
 
 git checkout --.
-    全変更を取り消す
 
-ステージに追加した変更を戻す
+    全変更を取り消す
+    ステージに追加した変更を戻す
+
 git reset HEAD 取り消す名
+
     全部を変更取り消す
 
 git reset HEAD .
+
     リポジトリの最新の内容をステージに
     上書きするイメージ
 
 git commit —amend
+
     直前のコミットを修正したいとき
     注意:
     リモートリポジトリに pushしたコミットは変更禁止
@@ -75,9 +102,11 @@ git commit —amend
     リモートを表示する
 
 git remote
+
     対応するURLを表示
 
 git remote -v
+
     リモートリポジトリは複数登録可能
     リモートリポジトリを新規追加する
 
@@ -85,15 +114,18 @@ git remote add リモート名
 git remote add tutorial URL
 
 リモートから情報取得 fetch
-2種類 fetch pull
-git fetch リモート名
-git fetch origin
+
+    2種類 fetch pull
+    git fetch リモート名
+    git fetch origin
 
 git merge
+
     ローカルリポジトリから情報を取得
     ローカルリポジトリからツリーへ統合
 
 cat ファイル名
+
     ファイルの内容確認
     リモートから情報を取得 pull
     マージまでを一度にやりたいとき
@@ -102,6 +134,7 @@ git pull リモート名　ブランチ名
     git pull origin master
 
 git pullは
+
     git fetch origin master
     git merge origin/masterと同じ
     リモートリポジトリからローカルリポジトリに情報を反映させた
@@ -176,14 +209,17 @@ fetchとpullの使い分け
 マージ3種類
 
 FastFoward：早送りになるマージ
+
     ブランチが枝分けれしてなかった時は
     ブランチのポインタを前に進めるだけ
 
 AutoMerge：基本的なマージ
+
     枝分かれして開発していた場合、マージコミットという新しいコミットを作る
     コミットファイルを2つ親に持っている
 
 コンフリクト
+
     同じファイルの同じ行に対して異なる
     編集を行ったとき
 
@@ -194,9 +230,9 @@ AutoMerge：基本的なマージ
 
 コンフリクトが起きないようにするには？
 
-・複数人で同じファイルを変更しない
-・pullやmergeする前に変更中に状態を無くしておく(commitやstashをしておく)
-・pullするブランチに移動してからpull
+    ・複数人で同じファイルを変更しない
+    ・pullやmergeする前に変更中に状態を無くしておく(commitやstashをしておく)
+    ・pullするブランチに移動してからpull
 
 ブランチ名を変更・削除
 
@@ -283,6 +319,59 @@ GitHub Flowの流れ
 
 リベースしてはいけないこと
 
-    GitHubにプッシュしたコミットを
-    リベースするのはNG
+    GitHubにプッシュしたコミットをリベースするのはNG
+        新しいコミットをしてその内容を修正する
     git push -f はNG
+        強制的にgit push できるが履歴が壊れる
+
+リベースとマージの使い分け
+
+    マージの特徴
+
+        マージコミットがたくさんあると履歴が複雑化する
+        コンフリクトの解決が比較的簡単
+            →コンフリクトが1度しか発生しない
+
+            履歴を残したいならマージ
+
+    リベースの特徴
+
+        履歴をきれいに保つことができる
+        コンフリクトの解決が若干面倒
+            →コンフリクトが各コミットごとに発生する
+
+            履歴をきれいにしたいならリベース
+
+    おすすめ
+            プッシュしていないローカルの変更にはリベースを使い
+            プッシュした後はマージを使う
+            コンフリクトしそうならマージを使う
+
+プルの設定をリベースに変更する
+
+    プルのマージ型とリベース型
+
+        マージ型
+            git pull リモート名　ブランチ名
+            git pull origin master
+            →マージコミットの履歴を残したいときに使う
+
+        リベース型
+            git pull --rebase リモート名　ブランチ名
+            git pull --rebase origin master
+            →マージコミットが残らない
+            GitHubの内容を取得しただけのときに使う
+
+    プルをリベース型に設定する
+
+        git config --global pull.rebase ture
+
+        masterブランチでgit pullするときだけ
+        git config barnch.master.rebase ture
+
+        --rebase オプションをつけなくても
+        pullの挙動がリベース型になる
+
+リベースで変更履歴を修正
+
+    リベースで履歴を書き換える
